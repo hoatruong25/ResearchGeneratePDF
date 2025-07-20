@@ -8,42 +8,48 @@ class Program
         string projectRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
 
         var blocks = GenerateBlockContent();
-        GenerateWithBlock.GeneratePDFSharpCore("TestBlock.pdf", projectRoot, blocks);
+        GenerateWithBlock.GeneratePdfSharpCore("TestBlock.pdf", projectRoot, blocks);
                 
         Console.WriteLine("File PDF đã được tạo trong thư mục Reports của project.");
     }
 
     private static List<BlockContent> GenerateBlockContent()
     {
+        const int width = 200;
+        const int xLeft = 30;
+        
         return new List<BlockContent>
         {
             new BlockContent
             {
-                Text = "THOẢ THUẬN CAM KẾT ĐẦU RA" +
+                Page = 1,
+                Text = "THOẢ THUẬN CAM KẾT ĐẦU RA\n" +
                        "Số: ADV... - ZIM/TTCKĐR",
-                X = 0,
-                Y = 0,
-                Width = 150,
-                Height = 100,
+                X = xLeft,
+                Y = 30,
+                Width = width,
+                Height = 50,
                 FontName = "Times New Roman",
-                FontSize = 6,
-                IsBold = true,
-                IsItalic = true,
+                FontSize = 10,
+                IsBold = false,
+                IsItalic = false,
                 Color = "black",
             },
-            // new BlockContent
-            // {
-            //     Text = "3.2 Trường hợp chỉ có Bên B thay đổi lịch, Bên A sẽ đổi lớp tương đương  trình độ của Bên B.",
-            //     X = 0,
-            //     Y = 0,
-            //     Width = 100,
-            //     Height = 500,
-            //     FontName = "Times New Roman",
-            //     FontSize = 6,
-            //     IsBold = true,
-            //     IsItalic = true,
-            //     Color = "black",
-            // }
+            new BlockContent
+            {
+                Page = 1,
+                Text = "Căn cứ Bộ luật Dân sự số 91/2015/QH13 ngày 24/11/2015 và các văn bản pháp luật liên quan;\n" +
+                       "Căn cứ nhu cầu và khả năng của các bên;",
+                X = xLeft,
+                Y = 60,
+                Width = width,
+                Height = 50,
+                FontName = "Times New Roman",
+                FontSize = 6,
+                IsBold = false,
+                IsItalic = true,
+                Color = "black",
+            }
         };
     }
 }

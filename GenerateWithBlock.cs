@@ -1,11 +1,14 @@
 using MigraDocCore.DocumentObjectModel;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Drawing.Layout;
+using PdfSharpCore.Drawing.Layout.enums;
+using TestPDFSharp.Utility;
 
 namespace TestPDFSharp;
 
 public class BlockContent
 {
+    public int Page { get; set; } = 1;
     public string Text { get; set; } = string.Empty;
     public double X { get; set; }
     public double Y { get; set; }
@@ -88,34 +91,47 @@ public static class GenerateWithBlock
     //     ExportDocument.ExportPdfSharpCore(filename, projectRoot, pdf);
     // }
 
-    public static void GeneratePDFSharpCore(string filename, string projectRoot, List<BlockContent> contents)
+    public static void GeneratePdfSharpCore(string filename, string projectRoot, List<BlockContent> contents)
     {
-        var pdf = new PdfSharpCore.Pdf.PdfDocument();
-        var page = pdf.AddPage();
-        page.Size = PdfSharpCore.PageSize.A4;
-        var gfx = XGraphics.FromPdfPage(page);
+        CustomFontResolver.Apply();
         
-        var tf = new XTextFormatter(gfx);
-        foreach (var content in contents)
+        var pdf = new PdfSharpCore.Pdf.PdfDocument();
+        var countPage = contents.Max(x => x.Page);
+        for (var i = 1; i <= countPage; i++)
         {
-            var fontStyle = XFontStyle.Regular;
-            if (content.IsBold && content.IsItalic)
-                fontStyle = XFontStyle.BoldItalic;
-            else if (content.IsBold)
-                fontStyle = XFontStyle.Bold;
-            else if (content.IsItalic)
-                fontStyle = XFontStyle.Italic;
+            var contentInPage = contents.Where(x => x.Page == i).ToList();
+            var page = pdf.AddPage();
+            page.Size = PdfSharpCore.PageSize.A4;
+            var gfx = XGraphics.FromPdfPage(page);
+        
+            var tf = new XTextFormatter(gfx);
+            foreach (var content in contentInPage)
+            {
+                var fontStyle = XFontStyle.Regular;
+                if (content.IsBold && content.IsItalic)
+                    fontStyle = XFontStyle.BoldItalic;
+                else if (content.IsBold)
+                    fontStyle = XFontStyle.Bold;
+                else if (content.IsItalic)
+                    fontStyle = XFontStyle.Italic;
             
-            var font = new XFont(content.FontName, content.FontSize, fontStyle);
+                var font = new XFont(content.FontName, content.FontSize, fontStyle);
             
-            var brush = ParseXBrush(content.Color);
+                var brush = ParseXBrush(content.Color);
             
-            var rect = new XRect(content.X, content.Y, content.Width, content.Height);
-            
-            
-            
-            tf.DrawString(content.Text, font, brush, rect);
+                var rect = new XRect(content.X, content.Y, content.Width, content.Height);
+
+                var alignment = new TextFormatAlignment
+                {
+                    Horizontal = XParagraphAlignment.Left,
+                    Vertical = XVerticalAlignment.Top
+                };
+                tf.DrawString(content.Text, font, brush, rect, alignment);
+            }
         }
+        
+        
+        
 
         ExportDocument.ExportPdfSharpCore(filename, projectRoot, pdf);
     }

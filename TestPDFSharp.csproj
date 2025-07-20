@@ -5,6 +5,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +16,17 @@
 
     <ItemGroup>
       <Folder Include="Reports\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Fonts\Arial.TTF" />
+      <EmbeddedResource Include="Fonts\Arialbd.TTF" />
+      <EmbeddedResource Include="Fonts\Arialbi.TTF" />
+      <EmbeddedResource Include="Fonts\Ariali.TTF" />
+      <EmbeddedResource Include="Fonts\Times.TTF" />
+      <EmbeddedResource Include="Fonts\Timesbd.TTF" />
+      <EmbeddedResource Include="Fonts\Timesbi.TTF" />
+      <EmbeddedResource Include="Fonts\Timesi.TTF" />
     </ItemGroup>
 
 </Project>

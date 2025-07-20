@@ -2,7 +2,7 @@ using MigraDocCore.DocumentObjectModel;
 using MigraDocCore.Rendering;
 using PdfSharpCore.Pdf;
 
-namespace TestPDFSharp;
+namespace TestPDFSharp.Utility;
 
 public static class ExportDocument
 {
