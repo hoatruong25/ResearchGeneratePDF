@@ -1,4 +1,6 @@
-﻿namespace TestPDFSharp;
+﻿using TestPDFSharp.Models;
+
+namespace TestPDFSharp;
 
 class Program
 {
@@ -17,6 +19,8 @@ class Program
     {
         const int width = 200;
         const int xLeft = 30;
+        const string fontName = "Times New Roman";
+        const string color = "black";
         
         return new List<BlockContent>
         {
@@ -29,11 +33,11 @@ class Program
                 Y = 30,
                 Width = width,
                 Height = 50,
-                FontName = "Times New Roman",
+                FontName = fontName,
                 FontSize = 10,
-                IsBold = false,
+                IsBold = true,
                 IsItalic = false,
-                Color = "black",
+                Color = color,
             },
             new BlockContent
             {
@@ -44,12 +48,26 @@ class Program
                 Y = 60,
                 Width = width,
                 Height = 50,
-                FontName = "Times New Roman",
-                FontSize = 6,
+                FontName = fontName,
+                FontSize = 7,
                 IsBold = false,
                 IsItalic = true,
-                Color = "black",
-            }
+                Color = color,
+            },
+            new BlockContent
+            {
+                Page = 1,
+                Text = "Hôm nay ngày .. tháng ... năm …. tại Trung tâm Anh ngữ ZIM, số \r\nnhà …………….., Phường ….……., Quận ……..….., Thành phố \r\n……..….",
+                X = xLeft,
+                Y = 90,
+                Width = width,
+                Height = 50,
+                FontName = fontName,
+                FontSize = 7,
+                IsBold = false,
+                IsItalic = true,
+                Color = color,
+            },
         };
     }
 }

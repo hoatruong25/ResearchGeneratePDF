@@ -3,6 +3,8 @@ using PdfSharpCore.Fonts;
 
 public class CustomFontResolver : IFontResolver
 {
+    public string DefaultFontName => "Arial";
+    
     public FontResolverInfo ResolveTypeface(string familyName, bool isBold, bool isItalic)
     {
         string name = familyName.ToLower().TrimEnd('#');
@@ -64,7 +66,6 @@ public class CustomFontResolver : IFontResolver
         }
     }
 
-    public string DefaultFontName { get; } = "Arial";
 
     private byte[] LoadFontData(string resourceName)
     {
@@ -81,10 +82,6 @@ public class CustomFontResolver : IFontResolver
 
     public static void Apply()
     {
-        // if (GlobalFontSettings.FontResolver == null)
-        // {
-        //     GlobalFontSettings.FontResolver = new CustomFontResolver();
-        // }
         GlobalFontSettings.FontResolver = new CustomFontResolver();
     }
 }
