@@ -13,5 +13,12 @@ obj/
 
 # Ide
 .idea/
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# JetBrains Rider/Resharper settings
+*.DotSettings.user
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore
